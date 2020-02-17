@@ -1,5 +1,11 @@
-#ifdef LOCOMOTIVE_EXPORTS
-#define LOCOMOTIVE_API __declspec(dllexport)
+#if WINDOWS
+    #ifdef LOCOMOTIVE_EXPORTS
+        #define LOCOMOTIVE_API __declspec(dllexport)
+    #else
+        #define LOCOMOTIVE_API __declspec(dllimport)
+    #endif
 #else
-#define LOCOMOTIVE_API __declspec(dllimport)
+    #ifdef LOCOMOTIVE_EXPORTS
+        #define LOCOMOTIVE_API __attribute__((visibility("default")))
+    #endif
 #endif
