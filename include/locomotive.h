@@ -1,4 +1,4 @@
-#if WINDOWS
+#if _WIN32
     #if LOCOMOTIVE_EXPORTS
         #define LOCOMOTIVE_API __declspec(dllexport)
     #else
