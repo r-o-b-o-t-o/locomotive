@@ -5,13 +5,12 @@ SET(CMAKE_CXX_STANDARD 17)
 # Includes
 include_directories(./include)
 SET(include_list
-    include/locomotive.h
-    include/test.h
+    include/locomotive/locomotive.h
 )
 
 # Sources
 SET(sources_list
-    src/test.cpp
+    
 )
 
 # Dynamic library
