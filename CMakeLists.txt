@@ -3,15 +3,27 @@ PROJECT(locomotive VERSION 0.1.0)
 SET(CMAKE_CXX_STANDARD 17)
 
 # Includes
-include_directories(./include)
+INCLUDE_DIRECTORIES(include lib/glad/include)
 SET(include_list
     include/locomotive/locomotive.h
+    include/locomotive/window.h
+    include/locomotive/camera.h
+    include/locomotive/shader.h
 )
 
 # Sources
 SET(sources_list
-    
+    src/window.cpp
+    src/camera.cpp
+    src/shader.cpp
+
+    lib/glad/src/glad.c
 )
+
+# GLFW build options
+SET(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+SET(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+SET(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 # Dynamic library
 ADD_LIBRARY(locomotive SHARED ${sources_list} ${include_list})
@@ -35,3 +47,13 @@ foreach (header IN LISTS include_list)
     STRING(REPLACE "/" "\\" header_path_msvc "${header_path}")
     SOURCE_GROUP("${header_path_msvc}" FILES "${header}")
 endforeach ()
+
+# Libs
+ADD_SUBDIRECTORY(lib/glfw)
+INCLUDE_DIRECTORIES(lib/glfw/include)
+TARGET_INCLUDE_DIRECTORIES(locomotive PUBLIC ${glfw_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(locomotive glfw ${glfw_LIBRARIES})
+
+FIND_PACKAGE(OpenGL REQUIRED)
+TARGET_INCLUDE_DIRECTORIES(locomotive PUBLIC ${OPENGL_INCLUDE_DIR})
+TARGET_LINK_LIBRARIES(locomotive ${OPENGL_gl_LIBRARY})
