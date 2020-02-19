@@ -1,3 +1,7 @@
+#ifndef LOCOMOTIVE_THREADPOOL_H
+#define LOCOMOTIVE_THREADPOOL_H
+
+#include "locomotive/locomotive.h"
 #include <mutex>
 #include <vector>
 #include <future>
@@ -6,7 +10,7 @@
 
 namespace Locomotive {
 
-    class Threadpool {
+    class LOCOMOTIVE_API Threadpool {
 
         std::mutex m;
         std::condition_variable v;
@@ -101,3 +105,5 @@ namespace Locomotive {
         
     };
 }
+
+#endif
