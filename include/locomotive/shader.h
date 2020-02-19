@@ -6,10 +6,11 @@
 #include <fstream>
 #include <sstream>
 
+#include "locomotive/locomotive.h"
 #include "glm/glm.hpp"
 
 namespace Locomotive {
-	class Shader {
+	class LOCOMOTIVE_API Shader {
 	public:
 		Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 

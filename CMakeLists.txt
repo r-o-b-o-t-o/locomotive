@@ -9,13 +9,19 @@ SET(include_list
     include/locomotive/window.h
     include/locomotive/camera.h
     include/locomotive/shader.h
-)
+    include/locomotive/mesh.h
+    include/locomotive/material.h
+    include/locomotive/phong.h
+    )
 
 # Sources
 SET(sources_list
     src/window.cpp
     src/camera.cpp
     src/shader.cpp
+    src/mesh.cpp
+    src/material.cpp
+    src/phong.cpp
 
     lib/glad/src/glad.c
 )

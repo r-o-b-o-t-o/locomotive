@@ -17,6 +17,9 @@ namespace Locomotive {
 		void setNearClipDistance(float near);
 		float getFarClipDistance() const;
 		void setFarClipDistance(float far);
+		void lookAt(const glm::vec3 pos);
+		const glm::mat4 &getProjectionMatrix() const;
+		const glm::mat4 &getViewMatrix() const;
 
 	private:
 		float fov;
@@ -25,7 +28,6 @@ namespace Locomotive {
 		float far;
 		glm::mat4 projectionMatrix;
 
-		glm::mat4 getViewMatrix() const;
 		void updateProjectionMatrix();
 	};
 }

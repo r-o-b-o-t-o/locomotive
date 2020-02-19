@@ -13,12 +13,23 @@ namespace Locomotive {
 		Window(std::string &title);
 		~Window();
 
-		void SetFullscreen(bool fullscreen) const;
+		void startRender() const;
+		void endRender() const;
+		void setFullscreen(bool fullscreen);
+		void setDimensions(int width, int height);
 
 	private:
 		static bool glfwInitialized;
+		static bool gladInitialized;
+
+		bool fullscreen;
+		int x, y;
+		int width, height;
 
 		GLFWwindow* handle;
+
+		bool initGlfw();
+		bool initGlad();
 	};
 }
 

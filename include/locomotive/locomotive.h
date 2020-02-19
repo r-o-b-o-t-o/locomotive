@@ -1,7 +1,7 @@
 #ifndef LOCOMOTIVE_H
 #define LOCOMOTIVE_H
 
-#if _WIN32
+#if defined(__WIN__) || defined(_WIN32) || defined(_WIN64)
     #if LOCOMOTIVE_EXPORTS
         #define LOCOMOTIVE_API __declspec(dllexport)
     #else

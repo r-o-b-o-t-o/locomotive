@@ -3,64 +3,63 @@
 
 namespace Locomotive {
 	Camera::Camera(float fov, float aspectRatio, float near, float far)
-		  : fov(fov),
-			aspectRatio(aspectRatio),
-			near(near),
-			far(far) {
+		: fov(fov),
+		aspectRatio(aspectRatio),
+		near(near),
+		far(far) {
 		this->updateProjectionMatrix();
 	}
 
-	glm::mat4 Camera::getViewMatrix() const
-	{
+	const glm::mat4 &Camera::getViewMatrix() const {
 		//glm::vec3 pos = this->getPosition();
-		glm::vec3 pos(0.0f, 0.0f, 0.0f);
-		glm::vec3 target(0.0f, 0.0f, 0.0f);
+		glm::vec3 pos(0.0f, 0.0f, -5.0f);
+		glm::vec3 target(0.0f, 0.0f, 1.0f);
 		glm::vec3 up(0.0f, 1.0f, 0.0f);
 		return glm::lookAt(pos, target, up);
 	}
 
-	float Camera::getAspectRatio() const
-	{
+	const glm::mat4 &Camera::getProjectionMatrix() const {
+		return this->projectionMatrix;
+	}
+
+	float Camera::getAspectRatio() const {
 		return this->aspectRatio;
 	}
 
-	void Camera::setAspectRatio(float aspectRatio)
-	{
+	void Camera::setAspectRatio(float aspectRatio) {
 		this->aspectRatio = aspectRatio;
 		this->updateProjectionMatrix();
 	}
 
-	float Camera::getFieldOfView() const
-	{
+	float Camera::getFieldOfView() const {
 		return this->fov;
 	}
 
-	void Camera::setFieldOfView(float fov)
-	{
+	void Camera::setFieldOfView(float fov) {
 		this->fov = fov;
 		this->updateProjectionMatrix();
 	}
 
-	float Camera::getNearClipDistance() const
-	{
+	float Camera::getNearClipDistance() const {
 		return this->near;
 	}
 
-	void Camera::setNearClipDistance(float near)
-	{
+	void Camera::setNearClipDistance(float near) {
 		this->near = near;
 		this->updateProjectionMatrix();
 	}
 
-	float Camera::getFarClipDistance() const
-	{
+	float Camera::getFarClipDistance() const {
 		return this->far;
 	}
 
-	void Camera::setFarClipDistance(float far)
-	{
+	void Camera::setFarClipDistance(float far) {
 		this->far = far;
 		this->updateProjectionMatrix();
+	}
+
+	void lookAt(const glm::vec3 target) {
+		// TODO
 	}
 
 	void Camera::updateProjectionMatrix() {
