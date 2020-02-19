@@ -10,7 +10,7 @@ namespace Locomotive {
 		this->updateProjectionMatrix();
 	}
 
-	const glm::mat4 &Camera::getViewMatrix() const {
+	glm::mat4 Camera::getViewMatrix() const {
 		//glm::vec3 pos = this->getPosition();
 		glm::vec3 pos(0.0f, 0.0f, -5.0f);
 		glm::vec3 target(0.0f, 0.0f, 1.0f);
