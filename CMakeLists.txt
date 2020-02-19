@@ -12,7 +12,8 @@ SET(include_list
     include/locomotive/mesh.h
     include/locomotive/material.h
     include/locomotive/phong.h
-    )
+    include/locomotive/threadpool.hpp
+)
 
 # Sources
 SET(sources_list
