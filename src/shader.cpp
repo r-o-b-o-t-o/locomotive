@@ -9,21 +9,52 @@ namespace Locomotive {
 	std::map<std::string, unsigned int> Shader::compiledShaders;
 
 	Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
-		unsigned int vertex = this->getShader(vertexPath, GL_VERTEX_SHADER);
-		unsigned int fragment = this->getShader(fragmentPath, GL_FRAGMENT_SHADER);
-		unsigned int geometry;
+		this->vertex = this->getShader(vertexPath, GL_VERTEX_SHADER);
+		this->fragment = this->getShader(fragmentPath, GL_FRAGMENT_SHADER);
 		if (geometryPath != nullptr) {
-			geometry = this->getShader(geometryPath, GL_GEOMETRY_SHADER);
+			this->geometry = this->getShader(geometryPath, GL_GEOMETRY_SHADER);
+			this->hasGeometryShader = true;
 		}
 
+		this->build();
+	}
+
+	Shader::Shader(const Shader &other) {
+		*this = other;
+	}
+
+	Shader::~Shader() {
+		glDeleteProgram(this->id);
+	}
+
+	Shader &Shader::operator=(const Shader &rhs) {
+		if (this != &rhs) {
+			this->~Shader();
+
+			this->vertex = rhs.vertex;
+			this->fragment = rhs.fragment;
+			this->geometry = rhs.geometry;
+			this->hasGeometryShader = rhs.hasGeometryShader;
+
+			if (this->hasGeometryShader) {
+				glAttachShader(this->id, this->vertex);
+				glAttachShader(this->id, this->fragment);
+			}
+
+			this->build();
+		}
+		return *this;
+	}
+
+	void Shader::build() {
 		int success;
 		char infoLog[512];
 
 		this->id = glCreateProgram();
-		glAttachShader(this->id, vertex);
-		glAttachShader(this->id, fragment);
-		if (geometryPath != nullptr) {
-			glAttachShader(this->id, geometry);
+		glAttachShader(this->id, this->vertex);
+		glAttachShader(this->id, this->fragment);
+		if (this->hasGeometryShader) {
+			glAttachShader(this->id, this->geometry);
 		}
 		glLinkProgram(this->id);
 		glGetProgramiv(this->id, GL_LINK_STATUS, &success);

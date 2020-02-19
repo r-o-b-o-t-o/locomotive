@@ -9,7 +9,11 @@
 namespace Locomotive {
 	class LOCOMOTIVE_API Phong : public Material {
 	public:
+		Phong();
+		Phong(Phong &other);
 		Phong(const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, float shininess);
+
+		Phong &operator=(Phong &rhs);
 
 		const glm::vec3 &getAmbient() const;
 		void setAmbient(const glm::vec3 &val);

@@ -36,26 +36,28 @@ SET(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 ADD_LIBRARY(locomotive SHARED ${sources_list} ${include_list})
 
 # Add flags
-if (WIN32)
+IF (WIN32)
     TARGET_COMPILE_DEFINITIONS(locomotive PRIVATE WINDOWS=1)
-endif ()
+ENDIF ()
 TARGET_COMPILE_DEFINITIONS(locomotive PRIVATE LOCOMOTIVE_EXPORTS=1)
 
 SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Create VS filters based on sources directory structure
-foreach (source IN LISTS sources_list)
+FOREACH (source IN LISTS sources_list)
     GET_FILENAME_COMPONENT(source_path "${source}" PATH)
     STRING(REPLACE "/" "\\" source_path_msvc "${source_path}")
     SOURCE_GROUP("${source_path_msvc}" FILES "${source}")
-endforeach ()
-foreach (header IN LISTS include_list)
+ENDFOREACH ()
+FOREACH (header IN LISTS include_list)
     GET_FILENAME_COMPONENT(header_path "${header}" PATH)
     STRING(REPLACE "/" "\\" header_path_msvc "${header_path}")
     SOURCE_GROUP("${header_path_msvc}" FILES "${header}")
-endforeach ()
+ENDFOREACH ()
 
 # Libs
+INCLUDE_DIRECTORIES(lib/OBJ_Loader/include)
+
 ADD_SUBDIRECTORY(lib/glfw)
 INCLUDE_DIRECTORIES(lib/glfw/include)
 TARGET_INCLUDE_DIRECTORIES(locomotive PUBLIC ${glfw_INCLUDE_DIRS})

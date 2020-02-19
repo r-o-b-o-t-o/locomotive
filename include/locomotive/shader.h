@@ -7,15 +7,18 @@
 #include <sstream>
 
 #include "locomotive/locomotive.h"
-#include "glm/glm.hpp"
+#include "glm/vec2.hpp"
+#include "glm/vec3.hpp"
+#include "glm/mat4x4.hpp"
 
 namespace Locomotive {
 	class LOCOMOTIVE_API Shader {
 	public:
 		Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+		Shader(const Shader &other);
+		~Shader();
 
-		Shader(const Shader&) = delete;
-		Shader &operator=(const Shader&) = delete;
+		Shader &operator=(const Shader &rhs);
 
 		void use() const;
 		unsigned int getId() const;
@@ -32,8 +35,14 @@ namespace Locomotive {
 
 	private:
 		unsigned int id;
+		unsigned int vertex;
+		unsigned int fragment;
+		unsigned int geometry;
+		bool hasGeometryShader;
+
 		static std::map<std::string, unsigned int> compiledShaders;
 
+		void build();
 		int getUniformLocation(const std::string &name) const;
 		std::string readShaderFile(const char* path) const;
 		unsigned int getShader(const char* path, unsigned int shaderType);
