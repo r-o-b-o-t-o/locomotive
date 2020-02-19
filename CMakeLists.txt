@@ -9,6 +9,7 @@ SET(include_list
     include/locomotive/window.h
     include/locomotive/camera.h
     include/locomotive/shader.h
+    include/locomotive/threadpool.hpp
 )
 
 # Sources
