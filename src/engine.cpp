@@ -1,27 +1,28 @@
-#include "locomotive\engine.h"
-#include "locomotive\threadpool.h"
+#include "locomotive/engine.h"
+#include "locomotive/threadpool.h"
+#include "locomotive/components.h"
 
 namespace Locomotive {
-	Engine::Engine() : deltaTime(0), frameRate(60), effectiveFrameRate(60),scene()
-	{
+	Engine::Engine() :
+			deltaTime(0.0),
+			targetFramerate(60.0f),
+			effectiveFrameRate(0.0f),
+			scene() {
 	}
 
-	const double& Engine::getDeltaTime()
-	{
+	const double& Engine::getDeltaTime() {
 		return this->deltaTime;
 	}
 
-	const int& Engine::getFramerate()
-	{
-		return this->frameRate;
+	float Engine::getTargetFramerate() {
+		return this->targetFramerate;
 	}
 
-	const int& Engine::getEffectiveFrameRate()
-	{
+	float Engine::getEffectiveFrameRate() {
 		return this->effectiveFrameRate;
 	}
 
-	void Engine::start() {
+	void Engine::start(Window &window) {
 		Threadpool tp;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
@@ -39,20 +40,28 @@ namespace Locomotive {
 		std::chrono::high_resolution_clock::time_point end;
 		std::chrono::duration<double> diff;
 		while (true) {
-
 			end = std::chrono::high_resolution_clock::now();
 			diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-			if (frameRate != 0 && diff.count() < 1 / frameRate) continue;
+			if (targetFramerate != 0 && diff.count() < 1.0f / targetFramerate) {
+				// TODO: sleep
+				continue;
+			}
 			start = std::chrono::high_resolution_clock::now();
-			deltaTime = diff.count();
-			effectiveFrameRate = (int) (1 / deltaTime);
+			deltaTime = static_cast<float>(diff.count());
+			effectiveFrameRate = 1.0f / deltaTime;
+
+			window.startRender();
+
 			/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
 				if (scene.gameObjects[j].isEnabled())
 					scene.gameObjects[j].update();
 			}*/
-			std::cout << diff.count() << "\n";
+			this->scene.update();
+			
+			window.endRender();
+
 			++i; 
-			if (i == 1500)
+			if (i == 500)
 				break;
 		}
 	}

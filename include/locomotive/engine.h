@@ -6,19 +6,23 @@
 #include <vector>
 #include "locomotive/locomotive.h"
 #include "locomotive/scene.h"
+#include "locomotive/window.h"
 
 namespace Locomotive {
+	class Scene;
+
 	class LOCOMOTIVE_API Engine {
 	public:
-		void start();
+		void start(Window &window);
 		Engine();
 		const double& getDeltaTime();
-		const int& getFramerate();
-		const int& getEffectiveFrameRate();
+		float getTargetFramerate();
+		float getEffectiveFrameRate();
+
 	private:
-		int frameRate;
-		double deltaTime;
-		int effectiveFrameRate;
+		float targetFramerate;
+		float effectiveFrameRate;
+		float deltaTime;
 		Scene scene;
 	};
 }
