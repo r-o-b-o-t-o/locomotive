@@ -2,7 +2,7 @@
 #define LOCOMOTIVE_CAMERA_H
 
 #include "locomotive/locomotive.h"
-#include "glm/glm.hpp"
+#include "glm/mat4x4.hpp"
 
 namespace Locomotive {
 	class LOCOMOTIVE_API Camera {

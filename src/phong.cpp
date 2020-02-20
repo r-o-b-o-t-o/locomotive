@@ -1,12 +1,30 @@
 #include "locomotive/phong.h"
 
 namespace Locomotive {
+    Phong::Phong() :
+            Phong(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), 32.0f) {
+
+    }
+
+    Phong::Phong(Phong &other) :
+            Phong(other.ambient, other.diffuse, other.specular, other.shininess) {
+        
+    }
+
     Phong::Phong(const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, float shininess) :
             Material("resources/shaders/phong.vs.glsl", "resources/shaders/phong.fs.glsl") {
         this->setAmbient(ambient);
         this->setDiffuse(diffuse);
         this->setSpecular(specular);
         this->setShininess(shininess);
+    }
+
+    Phong &Phong::operator=(Phong &rhs) {
+        this->setAmbient(rhs.ambient);
+        this->setDiffuse(rhs.diffuse);
+        this->setSpecular(rhs.specular);
+        this->setShininess(rhs.shininess);
+        return *this;
     }
 
     const glm::vec3 &Phong::getAmbient() const {

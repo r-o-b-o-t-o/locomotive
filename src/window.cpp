@@ -8,7 +8,7 @@ namespace Locomotive {
 	bool Window::glfwInitialized = false;
 	bool Window::gladInitialized = false;
 
-	Window::Window(const char* title) {
+	Window::Window(const char* title, bool fullscreen) {
 		if (!glfwInitialized) {
 			if (!this->initGlfw()) {
 				return;
@@ -17,15 +17,22 @@ namespace Locomotive {
 
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-		glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-		this->width = 800;
-		this->height = 450;
+		this->width = mode->width;
+		this->height = mode->height;
+		if (!fullscreen) {
+			this->width /= 2;
+			this->height /= 2;
+		}
 		this->x = (mode->width - this->width) / 2;
 		this->y = (mode->height - this->height) / 2;
-		this->fullscreen = true;
-		this->handle = glfwCreateWindow(mode->width, mode->height, title, monitor, nullptr);
+		this->fullscreen = fullscreen;
+		if (fullscreen) {
+			this->handle = glfwCreateWindow(this->width, this->height, title, monitor, nullptr);
+		} else {
+			this->handle = glfwCreateWindow(this->width, this->height, title, nullptr, nullptr);
+			glfwSetWindowPos(this->handle, this->x, this->y);
+		}
 		if (this->handle == nullptr) {
 			std::cerr << "Failed to create GLFW window" << std::endl;
 			glfwTerminate();
@@ -39,11 +46,11 @@ namespace Locomotive {
 			}
 		}
 
-		glViewport(0, 0, mode->width, mode->height);
+		glViewport(0, 0, this->width, this->height);
 	}
 
-	Window::Window(std::string &title)
-			: Window::Window(title.c_str()) {
+	Window::Window(std::string &title, bool fullscreen)
+			: Window::Window(title.c_str(), fullscreen) {
 	}
 
 	Window::~Window() {

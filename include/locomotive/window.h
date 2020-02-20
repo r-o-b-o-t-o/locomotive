@@ -9,8 +9,8 @@ struct GLFWwindow;
 namespace Locomotive {
 	class LOCOMOTIVE_API Window {
 	public:
-		Window(const char* title);
-		Window(std::string &title);
+		Window(const char* title, bool fullscreen = true);
+		Window(std::string &title, bool fullscreen = true);
 		~Window();
 
 		void startRender() const;
