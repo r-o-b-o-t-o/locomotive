@@ -6,23 +6,24 @@
 namespace Locomotive {
 class GameObject;
 
-namespace Components {
-class LOCOMOTIVE_API Component {
-public:
-    Component();
-    virtual ~Component() = default;
+	namespace Components {
+		class LOCOMOTIVE_API Component {
+		public:
+			Component();
+			virtual ~Component() = default;
 
-    bool isEnabled() const;
-    void setEnabled(bool enabled);
+			bool isEnabled() const;
+			void setEnabled(bool enabled);
 
-    GameObject* getParent() const;
-    void setParent(GameObject* go);
+			GameObject* getParent() const;
+			void setParent(GameObject* go);
 
-private:
-    bool enabled;
-    GameObject* parent;
+		private:
+			bool enabled;
+			GameObject* parent;
 
-};
-}}
+		};
+	}	
+}
 
 #endif

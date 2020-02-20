@@ -3,14 +3,17 @@
 #include "locomotive/components/pointlight.h"
 
 namespace Locomotive {
-	Scene::Scene() : gameObjects() {
-	}
-
-	Scene::~Scene() {
-	}
-
-	void Scene::addGameObject(GameObject* go) {
+		void Scene::addGameObject(GameObject* go) {
 		this->gameObjects.push_back(go);
+		auto mesh = go->getComponent<Components::Mesh>();
+		auto cam = go->getComponent<Components::Camera>();
+
+		if (mesh != nullptr)
+			this->renderables.push_back(mesh);
+
+		if (cam != nullptr)
+			this->camera = cam;
+
 	}
 
 	void Scene::init() {
@@ -31,6 +34,21 @@ namespace Locomotive {
 		for (Components::Mesh* mesh : this->getComponents<Components::Mesh>()) {
 			mesh->applyDirLight(direction, ambiant, diffuse, specular);
 		}
+	}
+
+	std::vector<GameObject*> Scene::getGameObjects()
+	{
+		return this->gameObjects;
+	}
+
+	std::vector<Components::Mesh*> Scene::getRenderables()
+	{
+		return this->renderables;
+	}
+
+	Components::Camera* Scene::getCamera()
+	{
+		return this->camera;
 	}
 
 	void Scene::update() {

@@ -1,5 +1,6 @@
 #include "locomotive\engine.h"
 #include "locomotive\threadpool.h"
+#include "locomotive\components.h"
 
 namespace Locomotive {
 	Engine::Engine() : deltaTime(0), frameRate(60), effectiveFrameRate(60),scene()
@@ -21,8 +22,15 @@ namespace Locomotive {
 		return this->effectiveFrameRate;
 	}
 
+	const Scene& Engine::getScene()
+	{
+		return this->scene;
+	}
+
 	void Engine::start() {
 		Threadpool tp;
+		std::vector<GameObject*> gameObjects;
+		std::vector<Components::Mesh*> renderables;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
 		/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
@@ -46,10 +54,18 @@ namespace Locomotive {
 			start = std::chrono::high_resolution_clock::now();
 			deltaTime = diff.count();
 			effectiveFrameRate = (int) (1 / deltaTime);
-			/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
-				if (scene.gameObjects[j].isEnabled())
-					scene.gameObjects[j].update();
+
+			gameObjects = scene.getGameObjects();
+			renderables = scene.getRenderables();
+
+			/*for (int j = 0; j < gameObjects.size(); ++j) {
+				if (gameObjects[j]->isEnabled())
+					gameObjects[j]->update();
 			}*/
+			for (auto m : renderables) {
+				if (m->isEnabled())
+					m->draw(*scene.getCamera());
+			}
 			std::cout << diff.count() << "\n";
 			++i; 
 			if (i == 1500)

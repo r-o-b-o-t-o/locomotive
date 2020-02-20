@@ -15,6 +15,8 @@ namespace Locomotive {
 		const double& getDeltaTime();
 		const int& getFramerate();
 		const int& getEffectiveFrameRate();
+		const Scene& getScene();
+
 	private:
 		int frameRate;
 		double deltaTime;
