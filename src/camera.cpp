@@ -1,21 +1,18 @@
-#include "locomotive/camera.h"
+#include "locomotive/components/camera.h"
 #include "glm/gtc/matrix_transform.hpp"
 
 namespace Locomotive {
+namespace Components {
 	Camera::Camera(float fov, float aspectRatio, float near, float far)
-		: fov(fov),
-		aspectRatio(aspectRatio),
-		near(near),
-		far(far) {
+		  : fov(glm::radians(fov)),
+			aspectRatio(aspectRatio),
+			near(near),
+			far(far) {
 		this->updateProjectionMatrix();
 	}
 
-	glm::mat4 Camera::getViewMatrix() const {
-		//glm::vec3 pos = this->getPosition();
-		glm::vec3 pos(0.0f, 0.0f, -3.5f);
-		glm::vec3 target(0.0f, 0.0f, 1.0f);
-		glm::vec3 up(0.0f, 1.0f, 0.0f);
-		return glm::lookAt(pos, target, up);
+	glm::mat4 Camera::getViewMatrix() {
+		return glm::inverse(this->getParent()->getTransform().getTransformMatrix());
 	}
 
 	const glm::mat4 &Camera::getProjectionMatrix() const {
@@ -32,11 +29,11 @@ namespace Locomotive {
 	}
 
 	float Camera::getFieldOfView() const {
-		return this->fov;
+		return glm::degrees(this->fov);
 	}
 
 	void Camera::setFieldOfView(float fov) {
-		this->fov = fov;
+		this->fov = glm::radians(fov);
 		this->updateProjectionMatrix();
 	}
 
@@ -58,11 +55,8 @@ namespace Locomotive {
 		this->updateProjectionMatrix();
 	}
 
-	void lookAt(const glm::vec3 target) {
-		// TODO
-	}
-
 	void Camera::updateProjectionMatrix() {
 		this->projectionMatrix = glm::perspective(fov, aspectRatio, near, far);
 	}
+}
 }

@@ -16,6 +16,8 @@ public:
     bool isEnabled() const;
     void setEnabled(bool enabled);
 
+    Components::Transform &getTransform();
+
     template<class C>
     C* getComponent() {
         for (Components::Component* component : components) {
