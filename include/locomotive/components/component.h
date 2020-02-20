@@ -4,14 +4,25 @@
 #include "locomotive/locomotive.h"
 
 namespace Locomotive {
-namespace Component {
+class GameObject;
 
-    class LOCOMOTIVE_API Component {
-        bool enabled: 1;
+namespace Components {
+class LOCOMOTIVE_API Component {
+public:
+    Component();
+    virtual ~Component() = default;
 
-        bool enabled() const { return enabled; }
-        void enabled(bool enabled) { this->enabled = enabled; }
-    };
+    bool isEnabled() const;
+    void setEnabled(bool enabled);
+
+    const GameObject* getParent() const;
+    void setParent(GameObject* go);
+
+private:
+    bool enabled;
+    GameObject* parent;
+
+};
 }}
 
 #endif

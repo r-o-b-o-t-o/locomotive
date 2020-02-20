@@ -13,6 +13,12 @@ SET(include_list
     include/locomotive/material.h
     include/locomotive/phong.h
     include/locomotive/threadpool.hpp
+    include/locomotive/components.h
+    include/locomotive/gameobject.h
+    include/locomotive/components/component.h
+    include/locomotive/components/transform.h
+    include/locomotive/components/spherecollider.h
+
 )
 
 # Sources
@@ -23,6 +29,10 @@ SET(sources_list
     src/mesh.cpp
     src/material.cpp
     src/phong.cpp
+    src/component.cpp
+    src/gameobject.cpp
+    src/transform.cpp
+    src/spherecollider.cpp
 
     lib/glad/src/glad.c
 )
