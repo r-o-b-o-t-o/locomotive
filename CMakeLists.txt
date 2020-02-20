@@ -13,6 +13,8 @@ SET(include_list
     include/locomotive/material.h
     include/locomotive/phong.h
     include/locomotive/threadpool.h
+    include/locomotive/arena.h
+    include/locomotive/components/component.h
 )
 
 # Sources
