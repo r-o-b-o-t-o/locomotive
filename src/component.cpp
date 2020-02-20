@@ -17,7 +17,7 @@ void Component::setEnabled(bool enabled) {
     this->enabled = enabled;
 }
 
-const GameObject* Component::getParent() const {
+GameObject* Component::getParent() const {
     return this->parent;
 }
 

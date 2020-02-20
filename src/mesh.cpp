@@ -1,12 +1,13 @@
 #include "glad/glad.h"
-#include "locomotive/mesh.h"
+#include "locomotive/components/mesh.h"
 #include "OBJ_Loader/OBJ_Loader.h"
 
-glm::vec3 loaderVec3ToGlm(const objl::Vector3& vec) {
+glm::vec3 loaderVec3ToGlm(const objl::Vector3 &vec) {
     return glm::vec3(vec.X, vec.Y, vec.Z);
 }
 
 namespace Locomotive {
+namespace Components {
     Mesh::Mesh(const std::string &modelPath) {
         objl::Loader loader;
         bool load = loader.LoadFile(modelPath);
@@ -43,10 +44,12 @@ namespace Locomotive {
     void Mesh::draw() {
         for (Shape &shape : this->shapes) {
             shape.material.getShader().use();
+            shape.material.getShader().setMat4("model", this->getParent()->getTransform().getTransformMatrix());
+
             glBindVertexArray(shape.vao);
             glBindBuffer(GL_ARRAY_BUFFER, shape.vbo);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, shape.ibo);
-            glDrawElements(GL_TRIANGLES, shape.indices.size(), GL_UNSIGNED_INT, (void*)0);
+            glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(shape.indices.size()), GL_UNSIGNED_INT, (void*)0);
         }
     }
 
@@ -71,7 +74,7 @@ namespace Locomotive {
         glDeleteBuffers(1, &this->ibo);
     }
 
-    Mesh::Shape &Mesh::Shape::operator=(const Shape &rhs) {
+    Mesh::Shape& Mesh::Shape::operator=(const Shape &rhs) {
         if (this != &rhs) {
             this->~Shape();
             this->vertices = rhs.vertices;
@@ -101,4 +104,5 @@ namespace Locomotive {
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
     }
+}
 }

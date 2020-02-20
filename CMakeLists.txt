@@ -6,21 +6,21 @@ SET(CMAKE_CXX_STANDARD 17)
 INCLUDE_DIRECTORIES(include lib/glad/include)
 SET(include_list
     include/locomotive/arena.h
-    include/locomotive/camera.h
     include/locomotive/components.h
+    include/locomotive/components/camera.h
     include/locomotive/components/component.h
+    include/locomotive/components/mesh.h
     include/locomotive/components/spherecollider.h
     include/locomotive/components/transform.h
+    include/locomotive/engine.h
     include/locomotive/gameobject.h
     include/locomotive/locomotive.h
     include/locomotive/material.h
-    include/locomotive/mesh.h
     include/locomotive/phong.h
+    #include/locomotive/scene.h
     include/locomotive/shader.h
     include/locomotive/threadpool.h
     include/locomotive/window.h
-    include/locomotive/scene.h
-    include/locomotive/engine.h
 )
 
 # Sources
@@ -32,10 +32,10 @@ SET(sources_list
     src/material.cpp
     src/phong.cpp
     src/shader.cpp
+    #src/scene.cpp
     src/spherecollider.cpp
     src/transform.cpp
     src/window.cpp
-    src/scene.cpp
     src/engine.cpp
 
     lib/glad/src/glad.c

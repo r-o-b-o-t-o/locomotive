@@ -15,7 +15,7 @@ public:
     bool isEnabled() const;
     void setEnabled(bool enabled);
 
-    const GameObject* getParent() const;
+    GameObject* getParent() const;
     void setParent(GameObject* go);
 
 private:

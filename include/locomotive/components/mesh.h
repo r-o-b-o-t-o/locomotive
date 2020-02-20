@@ -3,17 +3,19 @@
 
 #include <vector>
 #include "locomotive/phong.h"
+#include "locomotive/gameobject.h"
 
 namespace Locomotive {
-	class LOCOMOTIVE_API Mesh {
+namespace Components {
+	class LOCOMOTIVE_API Mesh : public Component {
 	public:
 		class Shape {
 		public:
 			Shape(std::vector<glm::vec3> vertices, std::vector<unsigned int> indices);
-			Shape(const Shape &other);
+			Shape(const Shape& other);
 			~Shape();
 
-			Shape &operator=(const Shape &rhs);
+			Shape& operator=(const Shape& rhs);
 
 			Phong material;
 			std::vector<glm::vec3> vertices;
@@ -25,14 +27,15 @@ namespace Locomotive {
 			void init();
 		};
 
-		Mesh(const std::string &modelPath);
+		Mesh(const std::string& modelPath);
 
-		std::vector<Shape> &getShapes();
+		std::vector<Shape>& getShapes();
 		void draw();
 
 	private:
 		std::vector<Shape> shapes;
 	};
+}
 }
 
 #endif
