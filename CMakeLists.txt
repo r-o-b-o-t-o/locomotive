@@ -19,6 +19,8 @@ SET(include_list
     include/locomotive/shader.h
     include/locomotive/threadpool.h
     include/locomotive/window.h
+    include/locomotive/scene.h
+    include/locomotive/engine.h
 )
 
 # Sources
@@ -33,6 +35,8 @@ SET(sources_list
     src/spherecollider.cpp
     src/transform.cpp
     src/window.cpp
+    src/scene.cpp
+    src/engine.cpp
 
     lib/glad/src/glad.c
 )

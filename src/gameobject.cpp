@@ -1,6 +1,4 @@
 #include "locomotive/gameobject.h"
-#include "locomotive/components/component.h"
-#include "locomotive/components/transform.h"
 
 namespace Locomotive {
 
