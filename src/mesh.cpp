@@ -41,15 +41,51 @@ namespace Components {
         }
     }
 
-    void Mesh::draw() {
+    void Mesh::draw(Camera &cam) {
         for (Shape &shape : this->shapes) {
-            shape.material.getShader().use();
-            shape.material.getShader().setMat4("model", this->getParent()->getTransform().getTransformMatrix());
+            Shader &shader = shape.material.getShader();
 
+            shader.setMat4("projection", cam.getProjectionMatrix());
+            shader.setMat4("view", cam.getViewMatrix());
+            shader.setVec3("viewPos", cam.getParent()->getTransform().getPosition());
+            shader.setMat4("model", this->getParent()->getTransform().getTransformMatrix());
+
+            shader.use();
             glBindVertexArray(shape.vao);
             glBindBuffer(GL_ARRAY_BUFFER, shape.vbo);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, shape.ibo);
             glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(shape.indices.size()), GL_UNSIGNED_INT, (void*)0);
+        }
+    }
+
+    void Mesh::applyPointLight(PointLight &light, int idx) {
+        for (Shape &shape : this->shapes) {
+            Shader &shader = shape.material.getShader();
+            std::string prop = "pointLights[" + std::to_string(idx) + "]";
+            shader.setVec3(prop + ".position", light.getParent()->getTransform().getPosition());
+            shader.setVec3(prop + ".ambient", light.ambiant);
+            shader.setVec3(prop + ".diffuse", light.diffuse);
+            shader.setVec3(prop + ".specular", light.specular);
+            shader.setFloat(prop + ".constant", light.constant);
+            shader.setFloat(prop + ".linear", light.linear);
+            shader.setFloat(prop + ".quadratic", light.quadratic);
+        }
+    }
+
+    void Mesh::applyDirLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular) {
+        for (Shape &shape : this->shapes) {
+            Shader &shader = shape.material.getShader();
+            std::string prop = "dirLight";
+            shader.setVec3(prop + ".direction", direction);
+            shader.setVec3(prop + ".ambiant", ambiant);
+            shader.setVec3(prop + ".diffuse", diffuse);
+            shader.setVec3(prop + ".specular", specular);
+        }
+    }
+
+    void Mesh::setNbPointLights(int n) {
+        for (Shape &shape : this->shapes) {
+            shape.material.getShader().setInt("nbPointLights", n);
         }
     }
 

@@ -1,5 +1,5 @@
-#ifndef LOCOMOTIVE_TRANSFORM_H
-#define LOCOMOTIVE_TRANSFORM_H
+#ifndef LOCOMOTIVE_COMPONENTS_TRANSFORM_H
+#define LOCOMOTIVE_COMPONENTS_TRANSFORM_H
 
 #include "locomotive/locomotive.h"
 #include "locomotive/components/component.h"

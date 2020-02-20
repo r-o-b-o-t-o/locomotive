@@ -1,5 +1,5 @@
-#ifndef LOCOMOTIVE_CAMERA_H
-#define LOCOMOTIVE_CAMERA_H
+#ifndef LOCOMOTIVE_COMPONENTS_CAMERA_H
+#define LOCOMOTIVE_COMPONENTS_CAMERA_H
 
 #include "locomotive/locomotive.h"
 #include "locomotive/gameobject.h"

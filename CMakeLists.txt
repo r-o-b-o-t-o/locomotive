@@ -10,6 +10,7 @@ SET(include_list
     include/locomotive/components/camera.h
     include/locomotive/components/component.h
     include/locomotive/components/mesh.h
+    include/locomotive/components/pointlight.h
     include/locomotive/components/spherecollider.h
     include/locomotive/components/transform.h
     include/locomotive/engine.h
@@ -17,7 +18,7 @@ SET(include_list
     include/locomotive/locomotive.h
     include/locomotive/material.h
     include/locomotive/phong.h
-    #include/locomotive/scene.h
+    include/locomotive/scene.h
     include/locomotive/shader.h
     include/locomotive/threadpool.h
     include/locomotive/window.h
@@ -31,8 +32,9 @@ SET(sources_list
     src/mesh.cpp
     src/material.cpp
     src/phong.cpp
+    src/pointlight.cpp
     src/shader.cpp
-    #src/scene.cpp
+    src/scene.cpp
     src/spherecollider.cpp
     src/transform.cpp
     src/window.cpp

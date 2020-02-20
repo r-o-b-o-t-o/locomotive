@@ -7,12 +7,29 @@
 
 namespace Locomotive {
 	class LOCOMOTIVE_API Scene {
-		std::vector<GameObject> gameObjects;
 	public:
 		Scene();
 		~Scene();
-		void addGameObject(GameObject*);
 
+		void addGameObject(GameObject*);
+		void setAmbiantLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
+
+	private:
+		std::vector<GameObject*> gameObjects;
+
+		void init();
+		void update();
+		
+		template<class C>
+		std::vector<C*> getComponents() {
+			std::vector<C*> components;
+			for (GameObject* go : this->gameObjects) {
+				if (C* component = go->getComponent<C>()) {
+					components.push_back(component);
+				}
+			}
+			return components;
+		}
 	};
 };
 

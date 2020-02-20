@@ -1,9 +1,11 @@
-#ifndef LOCOMOTIVE_MESH_H
-#define LOCOMOTIVE_MESH_H
+#ifndef LOCOMOTIVE_COMPONENTS_MESH_H
+#define LOCOMOTIVE_COMPONENTS_MESH_H
 
 #include <vector>
 #include "locomotive/phong.h"
 #include "locomotive/gameobject.h"
+#include "locomotive/components/camera.h"
+#include "locomotive/components/pointlight.h"
 
 namespace Locomotive {
 namespace Components {
@@ -29,11 +31,14 @@ namespace Components {
 
 		Mesh(const std::string& modelPath);
 
-		std::vector<Shape>& getShapes();
-		void draw();
+		void draw(Camera &cam);
+		void applyPointLight(PointLight &light, int idx);
+		void setNbPointLights(int n);
+		void applyDirLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
 
 	private:
 		std::vector<Shape> shapes;
+		std::vector<Shape>& getShapes();
 	};
 }
 }
