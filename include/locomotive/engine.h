@@ -11,9 +11,12 @@ namespace Locomotive {
 	public:
 		void start();
 		Engine();
+		const double& getDeltaTime();
+		const int& getFramerate();
 	private:
 		int frameRate;
 		double deltaTime;
+
 		//Scene scene;
 	};
 }

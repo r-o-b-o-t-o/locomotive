@@ -6,6 +6,16 @@ namespace Locomotive {
 	{
 	}
 
+	const double& Engine::getDeltaTime()
+	{
+		return this->deltaTime;
+	}
+
+	const int& Engine::getFramerate()
+	{
+		return this->frameRate;
+	}
+
 	void Engine::start() {
 		Threadpool tp;
 		tp.start(10);
