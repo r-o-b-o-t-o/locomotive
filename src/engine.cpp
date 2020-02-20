@@ -2,7 +2,7 @@
 #include "locomotive\threadpool.h"
 
 namespace Locomotive {
-	Engine::Engine() : deltaTime(0), frameRate(60)/*, scene()*/
+	Engine::Engine() : deltaTime(0), frameRate(60), effectiveFrameRate(60),scene()
 	{
 	}
 
@@ -14,6 +14,11 @@ namespace Locomotive {
 	const int& Engine::getFramerate()
 	{
 		return this->frameRate;
+	}
+
+	const int& Engine::getEffectiveFrameRate()
+	{
+		return this->effectiveFrameRate;
 	}
 
 	void Engine::start() {
@@ -40,8 +45,10 @@ namespace Locomotive {
 			if (frameRate != 0 && diff.count() < 1 / frameRate) continue;
 			start = std::chrono::high_resolution_clock::now();
 			deltaTime = diff.count();
+			effectiveFrameRate = (int) (1 / deltaTime);
 			/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
-				scene.gameObjects[j].update();
+				if (scene.gameObjects[j].isEnabled())
+					scene.gameObjects[j].update();
 			}*/
 			std::cout << diff.count() << "\n";
 			++i; 

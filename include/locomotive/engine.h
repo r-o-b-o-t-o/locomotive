@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "locomotive/locomotive.h"
+#include "locomotive/scene.h"
 
 namespace Locomotive {
 	class LOCOMOTIVE_API Engine {
@@ -13,11 +14,12 @@ namespace Locomotive {
 		Engine();
 		const double& getDeltaTime();
 		const int& getFramerate();
+		const int& getEffectiveFrameRate();
 	private:
 		int frameRate;
 		double deltaTime;
-
-		//Scene scene;
+		int effectiveFrameRate;
+		Scene scene;
 	};
 }
 #endif
