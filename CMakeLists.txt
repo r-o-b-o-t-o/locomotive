@@ -17,7 +17,7 @@ SET(include_list
     include/locomotive/mesh.h
     include/locomotive/phong.h
     include/locomotive/shader.h
-    include/locomotive/threadpool.hpp
+    include/locomotive/threadpool.h
     include/locomotive/window.h
 )
 
