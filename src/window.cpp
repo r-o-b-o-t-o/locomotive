@@ -89,16 +89,6 @@ namespace Locomotive {
 		return true;
 	}
 
-	void Window::startRender() const {
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void Window::endRender() const {
-		//glfwSwapBuffers(this->handle);
-		glFlush();
-	}
-
 	void Window::setFullscreen(bool fullscreen) {
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 

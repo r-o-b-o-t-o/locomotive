@@ -1,3 +1,6 @@
+#include <chrono>
+
+#include "glad/glad.h"
 #include "locomotive/engine.h"
 #include "locomotive/threadpool.h"
 #include "locomotive/components.h"
@@ -10,19 +13,19 @@ namespace Locomotive {
 			scene() {
 	}
 
-	const double& Engine::getDeltaTime() {
-		return this->deltaTime;
-	}
-
 	float Engine::getTargetFramerate() {
 		return this->targetFramerate;
+	}
+
+	void Engine::setTargetFramerate(float target) {
+		this->targetFramerate = target;
 	}
 
 	float Engine::getEffectiveFrameRate() {
 		return this->effectiveFrameRate;
 	}
 
-	void Engine::start(Window &window) {
+	void Engine::start() {
 		Threadpool tp;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
@@ -50,7 +53,7 @@ namespace Locomotive {
 			deltaTime = static_cast<float>(diff.count());
 			effectiveFrameRate = 1.0f / deltaTime;
 
-			window.startRender();
+			this->startRender();
 
 			/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
 				if (scene.gameObjects[j].isEnabled())
@@ -58,11 +61,21 @@ namespace Locomotive {
 			}*/
 			this->scene.update();
 			
-			window.endRender();
+			this->endRender();
 
 			++i; 
 			if (i == 500)
 				break;
 		}
+	}
+
+	void Engine::startRender() {
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Engine::endRender() {
+		//glfwSwapBuffers(this->handle);
+		glFlush();
 	}
 }
