@@ -1,36 +1,32 @@
-#include "locomotive\engine.h"
-#include "locomotive\threadpool.h"
-#include "locomotive\components.h"
+#include <chrono>
+
+#include "glad/glad.h"
+#include "locomotive/engine.h"
+#include "locomotive/threadpool.h"
+#include "locomotive/components.h"
 
 namespace Locomotive {
-	Engine::Engine() : deltaTime(0), frameRate(60), effectiveFrameRate(60),scene()
-	{
+	Engine::Engine() :
+			deltaTime(0.0),
+			targetFramerate(60.0f),
+			effectiveFrameRate(0.0f),
+			scene() {
 	}
 
-	const double& Engine::getDeltaTime()
-	{
-		return this->deltaTime;
+	float Engine::getTargetFramerate() {
+		return this->targetFramerate;
 	}
 
-	const int& Engine::getFramerate()
-	{
-		return this->frameRate;
+	void Engine::setTargetFramerate(float target) {
+		this->targetFramerate = target;
 	}
 
-	const int& Engine::getEffectiveFrameRate()
-	{
+	float Engine::getEffectiveFrameRate() {
 		return this->effectiveFrameRate;
-	}
-
-	const Scene& Engine::getScene()
-	{
-		return this->scene;
 	}
 
 	void Engine::start() {
 		Threadpool tp;
-		std::vector<GameObject*> gameObjects;
-		std::vector<Components::Mesh*> renderables;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
 		/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
@@ -47,14 +43,17 @@ namespace Locomotive {
 		std::chrono::high_resolution_clock::time_point end;
 		std::chrono::duration<double> diff;
 		while (true) {
-
 			end = std::chrono::high_resolution_clock::now();
 			diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-			if (frameRate != 0 && diff.count() < 1 / frameRate) continue;
+			if (targetFramerate != 0 && diff.count() < 1.0f / targetFramerate) {
+				// TODO: sleep
+				continue;
+			}
 			start = std::chrono::high_resolution_clock::now();
-			deltaTime = diff.count();
-			effectiveFrameRate = (int) (1 / deltaTime);
+			deltaTime = static_cast<float>(diff.count());
+			effectiveFrameRate = 1.0f / deltaTime;
 
+			this->startRender();
 			gameObjects = scene.getGameObjects();
 			renderables = scene.getRenderables();
 
@@ -66,10 +65,23 @@ namespace Locomotive {
 				if (m->isEnabled())
 					m->draw(*scene.getCamera());
 			}
-			std::cout << diff.count() << "\n";
+			this->scene.update();
+			
+			this->endRender();
+
 			++i; 
-			if (i == 1500)
+			if (i == 500)
 				break;
 		}
+	}
+
+	void Engine::startRender() {
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Engine::endRender() {
+		//glfwSwapBuffers(this->handle);
+		glFlush();
 	}
 }

@@ -27,6 +27,8 @@ namespace Locomotive {
 		this->x = (mode->width - this->width) / 2;
 		this->y = (mode->height - this->height) / 2;
 		this->fullscreen = fullscreen;
+
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_FALSE);
 		if (fullscreen) {
 			this->handle = glfwCreateWindow(this->width, this->height, title, monitor, nullptr);
 		} else {
@@ -85,15 +87,6 @@ namespace Locomotive {
 
 		gladInitialized = true;
 		return true;
-	}
-
-	void Window::startRender() const {
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void Window::endRender() const {
-		glfwSwapBuffers(this->handle);
 	}
 
 	void Window::setFullscreen(bool fullscreen) {

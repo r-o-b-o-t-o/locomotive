@@ -1,27 +1,29 @@
 #ifndef LOCOMOTIVE_ENGINE_H
 #define LOCOMOTIVE_ENGINE_H
 
-#include <chrono>
-#include <iostream>
-#include <vector>
 #include "locomotive/locomotive.h"
 #include "locomotive/scene.h"
+#include "locomotive/window.h"
 
 namespace Locomotive {
+	class Scene;
+
 	class LOCOMOTIVE_API Engine {
 	public:
 		void start();
 		Engine();
-		const double& getDeltaTime();
-		const int& getFramerate();
-		const int& getEffectiveFrameRate();
+		float getTargetFramerate();
+		void setTargetFramerate(float target);
+		float getEffectiveFrameRate();
 		const Scene& getScene();
-
 	private:
-		int frameRate;
-		double deltaTime;
-		int effectiveFrameRate;
+		float targetFramerate;
+		float effectiveFrameRate;
+		float deltaTime;
 		Scene scene;
+
+		void startRender();
+		void endRender();
 	};
 }
 #endif

@@ -13,6 +13,8 @@ namespace Locomotive {
 
 		void addGameObject(GameObject*);
 		void setAmbiantLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
+		void init();
+		void update();
 
 		std::vector<GameObject*> getGameObjects();
 		std::vector<Components::Mesh*> getRenderables();
@@ -23,9 +25,6 @@ namespace Locomotive {
 		std::vector<Components::Mesh*> renderables;
 		Components::Camera* camera;
 
-		void init();
-		void update();
-		
 		template<class C>
 		std::vector<C*> getComponents() {
 			std::vector<C*> components;

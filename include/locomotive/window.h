@@ -13,8 +13,6 @@ namespace Locomotive {
 		Window(std::string &title, bool fullscreen = true);
 		~Window();
 
-		void startRender() const;
-		void endRender() const;
 		void setFullscreen(bool fullscreen);
 		void setDimensions(int width, int height);
 
