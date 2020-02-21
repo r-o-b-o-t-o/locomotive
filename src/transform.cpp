@@ -27,6 +27,14 @@ namespace Components {
         this->setPosition(glm::vec3(x, y, z));
     }
 
+    void Transform::translate(glm::vec3 delta) {
+        this->setPosition(this->getPosition() + delta);
+    }
+
+    void Transform::translate(float x, float y, float z) {
+        this->translate(glm::vec3(x, y, z));
+    }
+
     const glm::quat& Transform::getRotation() const {
         return this->rotation;
     }

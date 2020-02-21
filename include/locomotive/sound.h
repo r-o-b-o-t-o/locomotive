@@ -3,7 +3,7 @@
 
 #include "locomotive/locomotive.h"
 #include "locomotive/threadpool.h"
-#include "irrKlang.h"
+#include "irrKlang/irrKlang.h"
 
 #include "glm/vec3.hpp"
 

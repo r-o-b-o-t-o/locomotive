@@ -18,6 +18,8 @@ namespace Components {
         const glm::vec3& getPosition() const;
         void setPosition(glm::vec3 position);
         void setPosition(float x, float y, float z);
+        void translate(glm::vec3 delta);
+        void translate(float x, float y, float z);
 
         const glm::quat& getRotation() const;
         glm::vec3 getRotationEulerAngles() const;

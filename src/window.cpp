@@ -7,8 +7,11 @@
 namespace Locomotive {
 	bool Window::glfwInitialized = false;
 	bool Window::gladInitialized = false;
+	Window* Window::instance = nullptr;
 
 	Window::Window(const char* title, bool fullscreen) {
+		instance = this;
+
 		if (!glfwInitialized) {
 			if (!this->initGlfw()) {
 				return;

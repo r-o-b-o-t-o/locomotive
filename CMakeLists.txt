@@ -3,7 +3,7 @@ PROJECT(locomotive VERSION 0.1.0)
 SET(CMAKE_CXX_STANDARD 17)
 
 # Includes
-INCLUDE_DIRECTORIES(include lib/glad/include lib/irrKlang/include)
+INCLUDE_DIRECTORIES(include lib/glad/include)
 SET(include_list
     include/locomotive/arena.h
     include/locomotive/axis.h
@@ -94,9 +94,8 @@ FIND_PACKAGE(OpenGL REQUIRED)
 TARGET_INCLUDE_DIRECTORIES(locomotive PUBLIC ${OPENGL_INCLUDE_DIR})
 TARGET_LINK_LIBRARIES(locomotive ${OPENGL_gl_LIBRARY})
 
-
 IF (WIN32 OR MSVC)
-    TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/bin/winx64-visualStudio/irrKlang.dll")
+    TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/lib/Winx64-visualStudio/irrKlang.lib")
 ELSEIF(UNIX AND NOT APPLE)
     TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/bin/linux-gcc-64/libIrrKlang.so")
 ELSE()

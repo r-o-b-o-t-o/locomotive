@@ -22,6 +22,4 @@ namespace Locomotive {
 		if (r == this->axis.end())return 0;
 		return r->second.getValue();
 	}
-	
-
 }

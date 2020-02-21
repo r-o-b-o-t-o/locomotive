@@ -4,6 +4,7 @@
 #include "locomotive\locomotive.h"
 #include "locomotive\axis.h"
 #include <map>
+#include <string>
 
 struct GLFWwindow;
 

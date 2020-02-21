@@ -20,6 +20,8 @@ namespace Locomotive {
 		void addInput(std::string const &axis, Input &&input);
 		int getAxis(std::string const& axis) const;
 
+		static Window* instance;
+
 	private:
 		static bool glfwInitialized;
 		static bool gladInitialized;
