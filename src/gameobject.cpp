@@ -1,13 +1,22 @@
 #include "locomotive/gameobject.h"
+#include "locomotive/engine.h"
 
 namespace Locomotive {
     GameObject::GameObject() :
-        enabled(true) {
+            enabled(true) {
         this->components.reserve(7);
     }
 
     GameObject::~GameObject() {
 
+    }
+
+    void* GameObject::operator new(const size_t size) {
+        return Engine::memoryPool().Allocate<GameObject>();
+    }
+
+    void GameObject::operator delete(void* pointer) {
+        Engine::memoryPool().Deallocate<GameObject>((GameObject*)pointer);
     }
 
     bool GameObject::isEnabled() const {

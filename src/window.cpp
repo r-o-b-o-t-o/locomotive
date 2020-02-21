@@ -56,7 +56,6 @@ namespace Locomotive {
 	}
 
 	Window::~Window() {
-		// TODO: call glfwTerminate() when there are no windows left
 		glfwDestroyWindow(this->handle);
 	}
 
@@ -84,6 +83,7 @@ namespace Locomotive {
 		}
 
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_FRAMEBUFFER_SRGB);
 
 		gladInitialized = true;
 		return true;

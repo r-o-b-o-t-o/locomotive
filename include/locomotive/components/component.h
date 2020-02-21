@@ -12,6 +12,9 @@ class GameObject;
 			Component();
 			virtual ~Component() = default;
 
+			/*static void* operator new(const size_t size);
+			static void operator delete(void* pointer);*/
+
 			bool isEnabled() const;
 			void setEnabled(bool enabled);
 

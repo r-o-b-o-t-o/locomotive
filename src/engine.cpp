@@ -12,6 +12,7 @@ namespace Locomotive {
 			targetFramerate(60.0f),
 			effectiveFrameRate(0.0f),
 			scene() {
+		this->arena.Initialise(4 * 1'048'576);
 	}
 
 	float Engine::getTargetFramerate() {
@@ -24,6 +25,10 @@ namespace Locomotive {
 
 	float Engine::getEffectiveFrameRate() {
 		return this->effectiveFrameRate;
+	}
+
+	void Engine::disableFramerateLimit() {
+		this->setTargetFramerate(-1.0f);
 	}
 
 	void Engine::start() {
@@ -58,6 +63,8 @@ namespace Locomotive {
 
 			glfwPollEvents();
 		}
+
+		this->freeResources();
 	}
 
 	void Engine::startRender() {
@@ -73,4 +80,15 @@ namespace Locomotive {
 	Scene &Engine::getScene() {
 		return this->scene;
 	}
+
+	Arena &Engine::memoryPool() {
+		return arena;
+	}
+
+	void Engine::freeResources() {
+		Shader::deleteShaders();
+		glfwTerminate();
+	}
+
+	Arena Engine::arena;
 }
