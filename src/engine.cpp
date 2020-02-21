@@ -29,6 +29,8 @@ namespace Locomotive {
 		Threadpool tp;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
+		std::vector<GameObject*> gameObjects;
+		std::vector<Components::Mesh*> renderables;
 		/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
 			futures.push_back(tp.queue([&scene, j] { scene.gameObjects[j].init(); }));
 		}*/
