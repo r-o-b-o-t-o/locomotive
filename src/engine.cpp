@@ -1,3 +1,4 @@
+#include <ctime>
 #include <chrono>
 
 #include "glad/glad.h"
@@ -12,7 +13,9 @@ namespace Locomotive {
 			targetFramerate(60.0f),
 			effectiveFrameRate(0.0f),
 			scene() {
+
 		this->arena.Initialise(4 * 1'048'576);
+		std::srand(unsigned(std::time(0)));
 	}
 
 	float Engine::getTargetFramerate() {

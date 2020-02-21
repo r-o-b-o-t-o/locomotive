@@ -2,7 +2,8 @@
 #include "locomotive/components/pointlight.h"
 
 namespace Locomotive {
-	Scene::Scene() {
+	Scene::Scene() :
+			camera(nullptr) {
 		activeScene = this;
 	}
 
