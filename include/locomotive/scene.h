@@ -5,6 +5,7 @@
 #include "locomotive/gameobject.h"
 #include "locomotive/components/mesh.h"
 #include "locomotive/components/camera.h"
+#include "locomotive/components/behaviour.h"
 #include <vector>
 
 namespace Locomotive {
@@ -14,15 +15,15 @@ namespace Locomotive {
 		void addGameObject(GameObject*);
 		void setAmbiantLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
 		void init();
-		void update();
+		void draw(Components::Camera &cam);
+		void update(float deltaTime);
 
-		std::vector<GameObject*> getGameObjects();
-		std::vector<Components::Mesh*> getRenderables();
 		Components::Camera* getCamera();
 
 	private:
 		std::vector<GameObject*> gameObjects;
 		std::vector<Components::Mesh*> renderables;
+		std::vector<Components::Behaviour*> behaviours;
 		Components::Camera* camera;
 
 		template<class C>

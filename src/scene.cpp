@@ -1,19 +1,21 @@
 #include "locomotive/scene.h"
-#include "locomotive/components/mesh.h"
 #include "locomotive/components/pointlight.h"
 
 namespace Locomotive {
-		void Scene::addGameObject(GameObject* go) {
+	void Scene::addGameObject(GameObject* go) {
 		this->gameObjects.push_back(go);
-		auto mesh = go->getComponent<Components::Mesh>();
-		auto cam = go->getComponent<Components::Camera>();
 
-		if (mesh != nullptr)
+		if (auto mesh = go->getComponent<Components::Mesh>()) {
 			this->renderables.push_back(mesh);
+		}
 
-		if (cam != nullptr)
+		if (auto cam = go->getComponent<Components::Camera>()) {
 			this->camera = cam;
+		}
 
+		if (auto behaviour = go->getComponent<Components::Behaviour>()) {
+			this->behaviours.push_back(behaviour);
+		}
 	}
 
 	void Scene::init() {
@@ -22,10 +24,29 @@ namespace Locomotive {
 
 		int nbLights = lights.size();
 		for (Components::Mesh* mesh : meshes) {
+			if (!mesh->isEnabled()) {
+				continue;
+			}
 			mesh->setNbPointLights(nbLights);
 			for (int i = 0; i < nbLights; ++i) {
 				Components::PointLight* light = lights[i];
-				mesh->applyPointLight(*light, i);
+				if (light->isEnabled()) {
+					mesh->applyPointLight(*light, i);
+				}
+			}
+		}
+
+		for (Components::Behaviour* b : this->behaviours) {
+			if (b->isEnabled()) {
+				b->start();
+			}
+		}
+	}
+
+	void Scene::draw(Components::Camera &cam) {
+		for (auto m : renderables) {
+			if (m->isEnabled()) {
+				m->draw(cam);
 			}
 		}
 	}
@@ -36,22 +57,16 @@ namespace Locomotive {
 		}
 	}
 
-	std::vector<GameObject*> Scene::getGameObjects()
-	{
-		return this->gameObjects;
-	}
-
-	std::vector<Components::Mesh*> Scene::getRenderables()
-	{
-		return this->renderables;
-	}
-
 	Components::Camera* Scene::getCamera()
 	{
 		return this->camera;
 	}
 
-	void Scene::update() {
-
+	void Scene::update(float deltaTime) {
+		for (Components::Behaviour* b : this->behaviours) {
+			if (b->isEnabled()) {
+				b->update(deltaTime);
+			}
+		}
 	}
 }

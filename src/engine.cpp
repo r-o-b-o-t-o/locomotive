@@ -1,6 +1,7 @@
 #include <chrono>
 
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
 #include "locomotive/engine.h"
 #include "locomotive/threadpool.h"
 #include "locomotive/components.h"
@@ -26,20 +27,13 @@ namespace Locomotive {
 	}
 
 	void Engine::start() {
-		Threadpool tp;
+		/*Threadpool tp;
 		tp.start(10);
 		std::vector<std::future<void>> futures;
-		std::vector<GameObject*> gameObjects;
-		std::vector<Components::Mesh*> renderables;
-		/*for (int j = 0; j < scene.gameObjects.size(); ++j) {
-			futures.push_back(tp.queue([&scene, j] { scene.gameObjects[j].init(); }));
-		}*/
-
 		for (auto& f : futures) {
 			f.wait();
-		}
-
-		int i = 0;
+		}*/
+		this->scene.init();
 
 		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		std::chrono::high_resolution_clock::time_point end;
@@ -55,25 +49,13 @@ namespace Locomotive {
 			deltaTime = static_cast<float>(diff.count());
 			effectiveFrameRate = 1.0f / deltaTime;
 
-			this->startRender();
-			gameObjects = scene.getGameObjects();
-			renderables = scene.getRenderables();
+			this->scene.update(deltaTime);
 
-			/*for (int j = 0; j < gameObjects.size(); ++j) {
-				if (gameObjects[j]->isEnabled())
-					gameObjects[j]->update();
-			}*/
-			for (auto m : renderables) {
-				if (m->isEnabled())
-					m->draw(*scene.getCamera());
-			}
-			this->scene.update();
-			
+			this->startRender();
+			this->scene.draw(*this->scene.getCamera());
 			this->endRender();
 
-			++i; 
-			if (i == 500)
-				break;
+			glfwPollEvents();
 		}
 	}
 
@@ -85,5 +67,9 @@ namespace Locomotive {
 	void Engine::endRender() {
 		//glfwSwapBuffers(this->handle);
 		glFlush();
+	}
+
+	Scene &Engine::getScene() {
+		return this->scene;
 	}
 }

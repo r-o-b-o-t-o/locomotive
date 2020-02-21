@@ -2,6 +2,7 @@
 #define LOCOMOTIVE_COMPONENTS_H
 
 #include "components/component.h"
+#include "components/behaviour.h"
 #include "components/camera.h"
 #include "components/mesh.h"
 #include "components/pointlight.h"

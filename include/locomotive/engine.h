@@ -15,7 +15,8 @@ namespace Locomotive {
 		float getTargetFramerate();
 		void setTargetFramerate(float target);
 		float getEffectiveFrameRate();
-		const Scene& getScene();
+		Scene &getScene();
+
 	private:
 		float targetFramerate;
 		float effectiveFrameRate;

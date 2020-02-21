@@ -7,6 +7,7 @@ INCLUDE_DIRECTORIES(include lib/glad/include)
 SET(include_list
     include/locomotive/arena.h
     include/locomotive/components.h
+    include/locomotive/components/behaviour.h
     include/locomotive/components/camera.h
     include/locomotive/components/component.h
     include/locomotive/components/mesh.h
