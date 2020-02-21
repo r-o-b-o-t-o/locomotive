@@ -30,9 +30,8 @@ namespace Locomotive {
 		std::vector<C*> getComponents() {
 			std::vector<C*> components;
 			for (GameObject* go : this->gameObjects) {
-				if (C* component = go->getComponent<C>()) {
-					components.push_back(component);
-				}
+				std::vector<C*> res = go->getComponents<C>();
+				components.insert(components.end(), res.begin(), res.end());
 			}
 			return components;
 		}

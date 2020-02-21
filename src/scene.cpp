@@ -5,16 +5,14 @@ namespace Locomotive {
 	void Scene::addGameObject(GameObject* go) {
 		this->gameObjects.push_back(go);
 
-		if (auto mesh = go->getComponent<Components::Mesh>()) {
-			this->renderables.push_back(mesh);
-		}
+		auto r = go->getComponents<Components::Mesh>();
+		this->renderables.insert(this->renderables.end(), r.begin(), r.end());
+
+		auto b = go->getComponents<Components::Behaviour>();
+		this->behaviours.insert(this->behaviours.end(), b.begin(), b.end());
 
 		if (auto cam = go->getComponent<Components::Camera>()) {
 			this->camera = cam;
-		}
-
-		if (auto behaviour = go->getComponent<Components::Behaviour>()) {
-			this->behaviours.push_back(behaviour);
 		}
 	}
 

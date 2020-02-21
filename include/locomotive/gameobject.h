@@ -32,6 +32,19 @@ public:
 
         return nullptr;
     }
+
+    template<class C>
+    std::vector<C*> getComponents() {
+        std::vector<C*> v;
+        for (Components::Component* component : components) {
+            C* cast = dynamic_cast<C*>(component);
+            if (cast) {
+                v.push_back(cast);
+            }
+        }
+        return v;
+    }
+
     void addComponent(Components::Component* component);
 
 private:

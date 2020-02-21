@@ -17,7 +17,7 @@ namespace Components {
 			Shape(const Shape& other);
 			~Shape();
 
-			Shape& operator=(const Shape& rhs);
+			Shape &operator=(const Shape &rhs);
 
 			Phong material;
 			std::vector<glm::vec3> vertices;
@@ -29,16 +29,23 @@ namespace Components {
 			void init();
 		};
 
-		Mesh(const std::string& modelPath);
+		Mesh(const std::string &modelPath);
+		Mesh(const Mesh &other);
+		~Mesh();
+
+		Mesh &operator=(const Mesh &rhs);
 
 		void draw(Camera &cam);
+		void setInstances(std::vector<glm::mat4> &instances);
 		void applyPointLight(PointLight &light, int idx);
 		void setNbPointLights(int n);
 		void applyDirLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
 
 	private:
 		std::vector<Shape> shapes;
-		std::vector<Shape>& getShapes();
+		std::vector<Shape> &getShapes();
+		unsigned int instancesVbo;
+		int nbInstances;
 	};
 }
 }
