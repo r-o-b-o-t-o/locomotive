@@ -416,3 +416,9 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/c++,cmake,visualstudio,visualstudiocode
+
+
+!lib/irrKlang/bin/
+!lib/irrKlang/bin/linux-gcc-64/*
+!lib/irrKlang/bin/macosx-gcc/*
+!lib/irrKlang/bin/winx64-visualStudio/*

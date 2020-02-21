@@ -3,7 +3,7 @@ PROJECT(locomotive VERSION 0.1.0)
 SET(CMAKE_CXX_STANDARD 17)
 
 # Includes
-INCLUDE_DIRECTORIES(include lib/glad/include)
+INCLUDE_DIRECTORIES(include lib/glad/include lib/irrKlang/include)
 SET(include_list
     include/locomotive/arena.h
     include/locomotive/axis.h
@@ -28,6 +28,7 @@ SET(include_list
     include/locomotive/shader.h
     include/locomotive/threadpool.h
     include/locomotive/window.h
+    include/locomotive/sound.h
 )
 
 # Sources
@@ -49,6 +50,7 @@ SET(sources_list
     src/transform.cpp
     src/window.cpp
     src/engine.cpp
+    src/sound.cpp
 
     lib/glad/src/glad.c
 )
@@ -92,3 +94,12 @@ TARGET_LINK_LIBRARIES(locomotive glfw ${glfw_LIBRARIES})
 FIND_PACKAGE(OpenGL REQUIRED)
 TARGET_INCLUDE_DIRECTORIES(locomotive PUBLIC ${OPENGL_INCLUDE_DIR})
 TARGET_LINK_LIBRARIES(locomotive ${OPENGL_gl_LIBRARY})
+
+
+IF (WIN32 OR MSVC)
+    TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/bin/winx64-visualStudio/irrKlang.dll")
+ELSEIF(UNIX AND NOT APPLE)
+    TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/bin/linux-gcc-64/libIrrKlang.so")
+ELSE()
+    TARGET_LINK_LIBRARIES(locomotive "${CMAKE_CURRENT_BINARY_DIR}/../lib/irrKlang/bin/macosx-gcc/libirrklang.dylib")
+ENDIF ()
