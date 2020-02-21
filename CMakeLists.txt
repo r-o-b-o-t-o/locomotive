@@ -7,7 +7,6 @@ INCLUDE_DIRECTORIES(include lib/glad/include lib/irrKlang/include)
 SET(include_list
     include/locomotive/arena.h
     include/locomotive/axis.h
-    include/locomotive/camera.h
     include/locomotive/components.h
     include/locomotive/components/behaviour.h
     include/locomotive/components/camera.h
