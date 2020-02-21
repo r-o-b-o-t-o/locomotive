@@ -39,6 +39,11 @@ namespace Locomotive {
 			return;
 		}
 		glfwMakeContextCurrent(this->handle);
+		glfwSetWindowUserPointer(this->handle, this);
+		glfwSetKeyCallback(this->handle, [](GLFWwindow* window, int key, int scancode, int action, int mode) {
+			Window* me = static_cast<Window*>(glfwGetWindowUserPointer(window));
+			me->updateAxis(key, action);
+		});
 
 		if (!gladInitialized) {
 			if (!initGlad()) {
@@ -125,5 +130,17 @@ namespace Locomotive {
 			glfwSetWindowMonitor(this->handle, nullptr, this->x, this->y, this->width, this->height, -1);
 			glViewport(0, 0, this->width, this->height);
 		}
+	}
+
+	void Window::updateAxis(int key, int action) {
+		this->inputmanager.update(key, action);
+	}
+
+	void Window::addInput(std::string const &axis, Input &&input) {
+		this->inputmanager.addInput(axis, std::move(input));
+	}
+
+	int Window::getAxis(std::string const& axis) const {
+		return this->inputmanager.getAxis(axis);
 	}
 }

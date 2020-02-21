@@ -2,6 +2,7 @@
 #define LOCOMOTIVE_WINDOW_H
 
 #include "locomotive/locomotive.h"
+#include "locomotive/inputManager.h"
 #include <string>
 
 struct GLFWwindow;
@@ -17,6 +18,9 @@ namespace Locomotive {
 		void endRender() const;
 		void setFullscreen(bool fullscreen);
 		void setDimensions(int width, int height);
+		void updateAxis(int key, int action);
+		void addInput(std::string const &axis, Input &&input);
+		int getAxis(std::string const& axis) const;
 
 	private:
 		static bool glfwInitialized;
@@ -27,6 +31,7 @@ namespace Locomotive {
 		int width, height;
 
 		GLFWwindow* handle;
+		InputManager inputmanager;
 
 		bool initGlfw();
 		bool initGlad();
