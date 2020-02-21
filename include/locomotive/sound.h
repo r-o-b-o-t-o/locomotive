@@ -8,7 +8,6 @@
 #include "glm/vec3.hpp"
 
 namespace Locomotive {
-
     class LOCOMOTIVE_API Sound {
         public:
             Sound();
@@ -21,12 +20,13 @@ namespace Locomotive {
             void playSound(const std::string& filename, glm::vec3 position, bool repeat);
             void updateListener(glm::vec3 position, glm::vec3 lookDirection);
 
+            static Sound* instance;
+
         private:
             irrklang::ISoundEngine* engine;
             Threadpool threadpool;
             //std::vector<std::future<irrklang::ISound*> > sounds;
     };
-
 }
 
 #endif

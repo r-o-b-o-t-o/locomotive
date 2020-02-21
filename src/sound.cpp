@@ -3,13 +3,14 @@
 #include <iostream>
 
 namespace Locomotive {
+    Sound* Sound::instance = nullptr;
 
-    Sound::Sound() {
-        this->engine = irrklang::createIrrKlangDevice();
-        threadpool.start(2);
+    Sound::Sound() :
+            Sound(2) {
     }
 
     Sound::Sound(int nb_thread) {
+        instance = this;
         this->engine = irrklang::createIrrKlangDevice();
         threadpool.start(nb_thread);
     }
