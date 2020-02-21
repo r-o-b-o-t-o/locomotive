@@ -1,5 +1,5 @@
-#ifndef LOCOMOTIVE_SPHERECOLLIDER_H
-#define LOCOMOTIVE_SPHERECOLLIDER_H
+#ifndef LOCOMOTIVE_COMPONENTS_SPHERECOLLIDER_H
+#define LOCOMOTIVE_COMPONENTS_SPHERECOLLIDER_H
 
 #include "locomotive/locomotive.h"
 #include "locomotive/components/component.h"

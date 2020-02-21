@@ -13,8 +13,13 @@ public:
     GameObject();
     ~GameObject();
 
+    static void* operator new(const size_t size);
+    static void operator delete(void* pointer);
+
     bool isEnabled() const;
     void setEnabled(bool enabled);
+
+    Components::Transform &getTransform();
 
     template<class C>
     C* getComponent() {
@@ -27,6 +32,19 @@ public:
 
         return nullptr;
     }
+
+    template<class C>
+    std::vector<C*> getComponents() {
+        std::vector<C*> v;
+        for (Components::Component* component : components) {
+            C* cast = dynamic_cast<C*>(component);
+            if (cast) {
+                v.push_back(cast);
+            }
+        }
+        return v;
+    }
+
     void addComponent(Components::Component* component);
 
 private:

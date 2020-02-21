@@ -1,28 +1,32 @@
-#ifndef LOCOMOTIVE_COMPONENT_H
-#define LOCOMOTIVE_COMPONENT_H
+#ifndef LOCOMOTIVE_COMPONENTS_COMPONENT_H
+#define LOCOMOTIVE_COMPONENTS_COMPONENT_H
 
 #include "locomotive/locomotive.h"
 
 namespace Locomotive {
 class GameObject;
 
-namespace Components {
-class LOCOMOTIVE_API Component {
-public:
-    Component();
-    virtual ~Component() = default;
+	namespace Components {
+		class LOCOMOTIVE_API Component {
+		public:
+			Component();
+			virtual ~Component() = default;
 
-    bool isEnabled() const;
-    void setEnabled(bool enabled);
+			/*static void* operator new(const size_t size);
+			static void operator delete(void* pointer);*/
 
-    const GameObject* getParent() const;
-    void setParent(GameObject* go);
+			bool isEnabled() const;
+			void setEnabled(bool enabled);
 
-private:
-    bool enabled;
-    GameObject* parent;
+			GameObject* getParent() const;
+			void setParent(GameObject* go);
 
-};
-}}
+		private:
+			bool enabled;
+			GameObject* parent;
+
+		};
+	}	
+}
 
 #endif

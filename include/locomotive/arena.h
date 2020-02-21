@@ -10,7 +10,9 @@ namespace Locomotive {
 	class Arena {
 	public:
 		Arena() :
-				memory(nullptr) {
+				memory(nullptr),
+				cursor(0),
+				size(0) {
 		}
 		Arena(Arena &other) = delete;
 

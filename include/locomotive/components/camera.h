@@ -1,11 +1,13 @@
-#ifndef LOCOMOTIVE_CAMERA_H
-#define LOCOMOTIVE_CAMERA_H
+#ifndef LOCOMOTIVE_COMPONENTS_CAMERA_H
+#define LOCOMOTIVE_COMPONENTS_CAMERA_H
 
 #include "locomotive/locomotive.h"
+#include "locomotive/gameobject.h"
 #include "glm/mat4x4.hpp"
 
 namespace Locomotive {
-	class LOCOMOTIVE_API Camera {
+namespace Components {
+	class LOCOMOTIVE_API Camera : public Components::Component {
 	public:
 		Camera(float fov, float aspectRatio, float near = 0.1f, float far = 1000.0f);
 
@@ -17,9 +19,8 @@ namespace Locomotive {
 		void setNearClipDistance(float near);
 		float getFarClipDistance() const;
 		void setFarClipDistance(float far);
-		void lookAt(const glm::vec3 pos);
 		const glm::mat4 &getProjectionMatrix() const;
-		glm::mat4 getViewMatrix() const;
+		glm::mat4 getViewMatrix();
 
 	private:
 		float fov;
@@ -30,6 +31,7 @@ namespace Locomotive {
 
 		void updateProjectionMatrix();
 	};
+}
 }
 
 #endif
