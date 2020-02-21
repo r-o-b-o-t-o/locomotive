@@ -41,9 +41,10 @@ namespace Locomotive {
 		while (true) {
 			end = std::chrono::high_resolution_clock::now();
 			diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-			if (targetFramerate != 0 && diff.count() < 1.0f / targetFramerate) {
-				// TODO: sleep
-				continue;
+			if (targetFramerate > 0.000000001f && diff.count() < 1.0f / targetFramerate) {
+				std::this_thread::sleep_for(std::chrono::duration<double>( (1.0f / targetFramerate) - diff.count()));
+				end = std::chrono::high_resolution_clock::now();
+				diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
 			}
 			start = std::chrono::high_resolution_clock::now();
 			deltaTime = static_cast<float>(diff.count());
