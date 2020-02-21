@@ -419,6 +419,7 @@ MigrationBackup/
 
 
 !lib/irrKlang/bin/
+!lib/irrKlang/lib/Winx64-visualStudio/irrKlang.lib
 !lib/irrKlang/bin/linux-gcc-64/*
 !lib/irrKlang/bin/macosx-gcc/*
 !lib/irrKlang/bin/winx64-visualStudio/*
