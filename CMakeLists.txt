@@ -18,6 +18,7 @@ SET(include_list
     include/locomotive/gameobject.h
     include/locomotive/locomotive.h
     include/locomotive/material.h
+    include/locomotive/meshloader.h
     include/locomotive/phong.h
     include/locomotive/scene.h
     include/locomotive/shader.h
@@ -32,6 +33,7 @@ SET(sources_list
     src/gameobject.cpp
     src/mesh.cpp
     src/material.cpp
+    src/meshloader.cpp
     src/phong.cpp
     src/pointlight.cpp
     src/shader.cpp

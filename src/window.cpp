@@ -29,6 +29,8 @@ namespace Locomotive {
 		this->fullscreen = fullscreen;
 
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_FALSE);
+		glfwWindowHint(GLFW_SAMPLES, 8);
+
 		if (fullscreen) {
 			this->handle = glfwCreateWindow(this->width, this->height, title, monitor, nullptr);
 		} else {
@@ -84,6 +86,7 @@ namespace Locomotive {
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_FRAMEBUFFER_SRGB);
+		glEnable(GL_MULTISAMPLE);
 
 		gladInitialized = true;
 		return true;

@@ -22,20 +22,20 @@ namespace Locomotive {
 
 		int nbLights = lights.size();
 		for (Components::Mesh* mesh : meshes) {
-			if (!mesh->isEnabled()) {
+			if (!mesh->isEnabled() || !mesh->getParent()->isEnabled()) {
 				continue;
 			}
 			mesh->setNbPointLights(nbLights);
 			for (int i = 0; i < nbLights; ++i) {
 				Components::PointLight* light = lights[i];
-				if (light->isEnabled()) {
+				if (light->isEnabled() && light->getParent()->isEnabled()) {
 					mesh->applyPointLight(*light, i);
 				}
 			}
 		}
 
 		for (Components::Behaviour* b : this->behaviours) {
-			if (b->isEnabled()) {
+			if (b->isEnabled() && b->getParent()->isEnabled()) {
 				b->start();
 			}
 		}
@@ -43,7 +43,7 @@ namespace Locomotive {
 
 	void Scene::draw(Components::Camera &cam) {
 		for (auto m : renderables) {
-			if (m->isEnabled()) {
+			if (m->isEnabled() && m->getParent()->isEnabled()) {
 				m->draw(cam);
 			}
 		}
@@ -55,8 +55,7 @@ namespace Locomotive {
 		}
 	}
 
-	Components::Camera* Scene::getCamera()
-	{
+	Components::Camera* Scene::getCamera() {
 		return this->camera;
 	}
 
