@@ -11,14 +11,15 @@
 namespace Locomotive {
 	class LOCOMOTIVE_API Scene {
 	public:
-
-		void addGameObject(GameObject*);
+		Scene();
+		void addGameObject(GameObject* go);
 		void setAmbiantLight(glm::vec3 direction, glm::vec3 ambiant, glm::vec3 diffuse, glm::vec3 specular);
 		void init();
 		void draw(Components::Camera &cam);
 		void update(float deltaTime);
 
 		Components::Camera* getCamera();
+		static Scene* activeScene;
 
 	private:
 		std::vector<GameObject*> gameObjects;

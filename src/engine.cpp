@@ -68,7 +68,7 @@ namespace Locomotive {
 	}
 
 	void Engine::startRender() {
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.51f, 0.78f, 0.89f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 

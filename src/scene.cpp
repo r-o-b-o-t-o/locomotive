@@ -2,6 +2,10 @@
 #include "locomotive/components/pointlight.h"
 
 namespace Locomotive {
+	Scene::Scene() {
+		activeScene = this;
+	}
+
 	void Scene::addGameObject(GameObject* go) {
 		this->gameObjects.push_back(go);
 
@@ -66,4 +70,6 @@ namespace Locomotive {
 			}
 		}
 	}
+
+	Scene* Scene::activeScene = nullptr;
 }
